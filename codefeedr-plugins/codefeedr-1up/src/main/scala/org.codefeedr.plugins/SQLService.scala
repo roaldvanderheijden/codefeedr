@@ -9,8 +9,8 @@ import org.apache.flink.table.api.scala._
 import org.apache.flink.types.Row
 //import org.tudelft.plugins.clearlydefined.protocol.Protocol.{ClearlyDefinedRelease, ClearlyDefinedReleasePojo}
 //import org.tudelft.plugins.clearlydefined.util.ClearlyDefinedSQLService
-//import org.tudelft.plugins.cargo.protocol.Protocol.{CrateRelease, CrateReleasePojo}
-//import org.tudelft.plugins.cargo.util.CargoSQLService
+import org.codefeedr.plugins.cargo.protocol.Protocol.{CrateRelease, CrateReleasePojo}
+import org.codefeedr.plugins.cargo.util.CargoSQLService
 //import org.tudelft.plugins.maven.protocol.Protocol._
 //import org.tudelft.plugins.maven.util.MavenSQLService
 //import org.tudelft.plugins.npm.protocol.Protocol.{NpmReleaseExt, NpmReleaseExtPojo}
@@ -88,7 +88,7 @@ object SQLService {
         })
 
         MavenSQLService.registerTables(pojos, tEnv)
-      }
+      }*/
 
       // Cargo cases
       case x if typeOf[T] <:< typeOf[CrateRelease] => {
@@ -101,6 +101,7 @@ object SQLService {
         CargoSQLService.registerTables(pojos, tEnv)
       }
 
+      /*
       // Npm cases
       case x if typeOf[T] <:< typeOf[NpmReleaseExt] => {
         val in = x.asInstanceOf[DataStream[NpmReleaseExt]]
