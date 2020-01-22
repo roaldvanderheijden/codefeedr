@@ -11,8 +11,8 @@ import org.apache.flink.types.Row
 //import org.tudelft.plugins.clearlydefined.util.ClearlyDefinedSQLService
 //import org.tudelft.plugins.cargo.protocol.Protocol.{CrateRelease, CrateReleasePojo}
 //import org.tudelft.plugins.cargo.util.CargoSQLService
-//import org.tudelft.plugins.maven.protocol.Protocol._
-//import org.tudelft.plugins.maven.util.MavenSQLService
+import org.codefeedr.plugins.maven.protocol.Protocol._
+import org.codefeedr.plugins.maven.util.MavenSQLService
 //import org.tudelft.plugins.npm.protocol.Protocol.{NpmReleaseExt, NpmReleaseExtPojo}
 //import org.tudelft.plugins.npm.util.NpmSQLService
 
@@ -70,6 +70,7 @@ object SQLService {
       // For testing
       /*case x if typeOf[T] <:< typeOf[MavenReleasePojo] => tEnv.registerDataStream("Maven", stream)
       case x if typeOf[T] <:< typeOf[MavenReleaseExtPojo] => tEnv.registerDataStream("Maven", stream)
+*/
 
       // Maven cases
       case x if typeOf[T] <:< typeOf[MavenRelease] => {
@@ -81,6 +82,7 @@ object SQLService {
         tEnv.registerDataStream("Maven", pojos)
       }
 
+
       case x if typeOf[T] <:< typeOf[MavenReleaseExt] => {
         val in = x.asInstanceOf[DataStream[MavenReleaseExt]]
         val pojos: DataStream[MavenReleaseExtPojo] = in.map(x => {
@@ -90,6 +92,7 @@ object SQLService {
         MavenSQLService.registerTables(pojos, tEnv)
       }
 
+        /*
       // Cargo cases
       case x if typeOf[T] <:< typeOf[CrateRelease] => {
         implicit val typeInfo = TypeInformation.of(classOf[CrateReleasePojo])
