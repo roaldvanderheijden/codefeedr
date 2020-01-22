@@ -48,7 +48,8 @@ lazy val root = (project in file("."))
     pluginGitHub,
     pluginRabbitMQ,
     pluginGHTorrent,
-    pluginPypi)
+    pluginPypi,
+    plugin1up)
 
 lazy val core = (project in file("codefeedr-core"))
   .settings(
@@ -162,6 +163,17 @@ lazy val pluginPypi = (project in file("codefeedr-plugins/codefeedr-pypi"))
     )
   ).dependsOn(core)
 
+lazy val plugin1up = (project in file("codefeedr-plugins/codefeedr-1up"))
+  .settings(
+    name := pluginPrefix + "1up",
+    settings,
+    assemblySettings,
+    libraryDependencies ++= commonDependencies ++ Seq(
+      dependencies.spray,
+      dependencies.flinkTables
+    )
+  ).dependsOn(core)
+
 lazy val dependencies =
   new {
     val flinkVersion       = "1.9.1"
@@ -180,6 +192,7 @@ lazy val dependencies =
     val flinkRuntimeWeb    = "org.apache.flink"          %% "flink-runtime-web"              % flinkVersion      % Provided
     val flinkElasticSearch = "org.apache.flink"          %% "flink-connector-elasticsearch6" % flinkVersion
     val flinkRabbitMQ      = "org.apache.flink"          %% "flink-connector-rabbitmq"       % flinkVersion
+    val flinkTables        = "org.apache.flink"          %% "flink-table-planner"            % flinkVersion
 
     val redis              = "net.debasishg"             %% "redisclient"                    % "3.6"
     val kafkaClient        = "org.apache.kafka"           % "kafka-clients"                  % "2.4.0"
@@ -188,6 +201,8 @@ lazy val dependencies =
     val json4s             = "org.json4s"                %% "json4s-scalap"                  % json4sVersion
     val jackson            = "org.json4s"                %% "json4s-jackson"                 % json4sVersion
     val json4sExt          = "org.json4s"                %% "json4s-ext"                     % json4sVersion
+
+    val spray              = "io.spray"                  %% "spray-json"                     % "1.3.4"
 
     val mongo              = "org.mongodb.scala"         %% "mongo-scala-driver"             % "2.3.0"
 
