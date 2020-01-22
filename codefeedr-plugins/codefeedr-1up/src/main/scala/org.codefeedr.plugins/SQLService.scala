@@ -13,8 +13,8 @@ import org.apache.flink.types.Row
 //import org.tudelft.plugins.cargo.util.CargoSQLService
 //import org.tudelft.plugins.maven.protocol.Protocol._
 //import org.tudelft.plugins.maven.util.MavenSQLService
-//import org.tudelft.plugins.npm.protocol.Protocol.{NpmReleaseExt, NpmReleaseExtPojo}
-//import org.tudelft.plugins.npm.util.NpmSQLService
+import org.codefeedr.plugins.npm.protocol.Protocol.{NpmReleaseExt, NpmReleaseExtPojo}
+import org.codefeedr.plugins.npm.util.NpmSQLService
 
 import scala.reflect.runtime.universe._
 
@@ -99,7 +99,7 @@ object SQLService {
         })
 
         CargoSQLService.registerTables(pojos, tEnv)
-      }
+      }*/
 
       // Npm cases
       case x if typeOf[T] <:< typeOf[NpmReleaseExt] => {
@@ -108,7 +108,7 @@ object SQLService {
           NpmReleaseExtPojo.fromNpmReleaseExt(x)
         })
         NpmSQLService.registerTables(pojos, tEnv)
-      }
+      }/*
 
       // ClearlyDefined
       case x if typeOf[T] <:< typeOf[ClearlyDefinedRelease] => {
